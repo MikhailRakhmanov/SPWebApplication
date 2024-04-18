@@ -1,0 +1,25 @@
+[versions]
+org-apache-poi-poi = "5.2.5"
+org-apache-poi-poi-ooxml = "5.2.5"
+org-firebirdsql-jdbc-jaybird = "5.0.2.java11"
+org-openjfx-javafx-base = "19.0.2.1"
+org-projectlombok-lombok = "1.18.30"
+org-springframework-boot-spring-boot = "3.2.2"
+org-springframework-boot-spring-boot-starter-actuator = "3.2.2"
+org-springframework-boot-spring-boot-starter-jdbc = "3.2.2"
+org-springframework-boot-spring-boot-starter-thymeleaf = "3.2.2"
+org-springframework-boot-spring-boot-starter-tomcat = "3.2.2"
+org-springframework-boot-spring-boot-starter-web = "3.2.2"
+
+[libraries]
+org-apache-poi-poi = { module = "org.apache.poi:poi", version.ref = "org-apache-poi-poi" }
+org-apache-poi-poi-ooxml = { module = "org.apache.poi:poi-ooxml", version.ref = "org-apache-poi-poi-ooxml" }
+org-firebirdsql-jdbc-jaybird = { module = "org.firebirdsql.jdbc:jaybird", version.ref = "org-firebirdsql-jdbc-jaybird" }
+#org-openjfx-javafx-base = { module = "org.openjfx:javafx-base", version.ref = "org-openjfx-javafx-base" }
+#org-projectlombok-lombok = { module = "org.projectlombok:lombok", version.ref = "org-projectlombok-lombok" }
+#org-springframework-boot-spring-boot = { module = "org.springframework.boot:spring-boot", version.ref = "org-springframework-boot-spring-boot" }
+#org-springframework-boot-spring-boot-starter-actuator = { module = "org.springframework.boot:spring-boot-starter-actuator", version.ref = "org-springframework-boot-spring-boot-starter-actuator" }
+#org-springframework-boot-spring-boot-starter-jdbc = { module = "org.springframework.boot:spring-boot-starter-jdbc", version.ref = "org-springframework-boot-spring-boot-starter-jdbc" }
+#org-springframework-boot-spring-boot-starter-thymeleaf = { module = "org.springframework.boot:spring-boot-starter-thymeleaf", version.ref = "org-springframework-boot-spring-boot-starter-thymeleaf" }
+#org-springframework-boot-spring-boot-starter-tomcat = { module = "org.springframework.boot:spring-boot-starter-tomcat", version.ref = "org-springframework-boot-spring-boot-starter-tomcat" }
+#org-springframework-boot-spring-boot-starter-web = { module = "org.springframework.boot:spring-boot-starter-web", version.ref = "org-springframework-boot-spring-boot-starter-web" }
