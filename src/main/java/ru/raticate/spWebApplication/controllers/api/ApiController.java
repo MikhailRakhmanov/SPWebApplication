@@ -172,6 +172,7 @@ public class ApiController {
 
     @PostMapping(value = "/export", produces = MediaType.APPLICATION_JSON_VALUE)
     List<ResultExport> exportData(@RequestBody List<Integer> idZmat) {
+        isImporting = true;
         Map<Integer, Packet> idZmat2Packet = new HashMap<>();
         Map<Integer, List<Export>> idZmat2Export = new HashMap<>();
         for (Integer id : idZmat) {
@@ -249,7 +250,7 @@ public class ApiController {
             mainJdbcTemplate.update("update zmat set PARENT = ? where IDZMAT = ?", first, id);
             System.out.println(idZmat);
         }
-        new Thread(() -> {
+        Thread thread = new Thread(() -> {
             String[] order = {
                     "numDog",
                     "caption",
@@ -297,10 +298,23 @@ public class ApiController {
                     }
                 }
             }
-        }).start();
+        });
+
+        thread.start();
+        try {
+            thread.join();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        isImporting = false;
         return resultExport;
     }
+    @GetMapping("/isImporting")
+    Boolean getIsImporting(){
+        return isImporting;
+    }
 
+    volatile Boolean isImporting = false;
     @GetMapping("/export")
     List<ResultExport> getExportData() {
         return resultExport;
