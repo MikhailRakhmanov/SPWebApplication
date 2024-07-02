@@ -19,7 +19,6 @@ import ru.raticate.spWebApplication.util.Pair;
 
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.text.DecimalFormat;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -66,10 +65,11 @@ public class ApiController {
         currentPlatform = pair.getPlatform();
         if (pair.getProduct() != null) {
             scanService.sendQuery(new Pair<>(pair.getPlatform(), pair.getProduct()));
-            return "succes";
+            return "success";
         } else {
             return "failed";
         }
+
     }
 
     @GetMapping("/import")
@@ -123,10 +123,10 @@ public class ApiController {
         );
 
         int count = products.size();
-        Double area = products.stream().mapToDouble(Product::getSm).sum();
+        double area = products.stream().mapToDouble(Product::getSm).sum();
         return new PlatformDTO(
                 products, id, count,
-                new DecimalFormat("#.###").format(area)
+                area
         );
     }
 
@@ -160,6 +160,10 @@ public class ApiController {
                 (rs, rowNum) -> rs.getString("caption"),
                 date,
                 id);
+        DateConvertor dateConvertor = new DateConvertor();
+        for (int i = 0; i < result.size(); i++) {
+            result.set(i, result.get(i) + (" " + dateConvertor.numToStr(date)));
+        };
 //        System.out.println(new String(
 //                jedis.setex(id.toString(), 24 * 3600, String.join(", ", result)).getBytes(),
 //                Charset.forName("windows-1251"))
@@ -309,12 +313,14 @@ public class ApiController {
         isImporting = false;
         return resultExport;
     }
+
     @GetMapping("/isImporting")
-    Boolean getIsImporting(){
+    Boolean getIsImporting() {
         return isImporting;
     }
 
     volatile Boolean isImporting = false;
+
     @GetMapping("/export")
     List<ResultExport> getExportData() {
         return resultExport;

@@ -6,7 +6,57 @@
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Printing</title>
-    <link rel="stylesheet" href="style.css">
+    <style>
+        * {
+            margin-bottom: 10px;
+            font-family: Arial, serif;
+            font-size: 16px;
+        }
+
+        tr, th, td {
+            border: 2px solid black;
+            border-collapse: collapse;
+        }
+
+
+        td {
+            padding: 5px;
+        }
+
+        body {
+            margin: 5px;
+        }
+
+        .main {
+            width: 100%;
+        }
+
+        .result {
+            width: 35vw;
+        }
+
+
+        table, tr, td {
+            border: 1px solid black;
+            border-spacing: 0px;
+            border-collapse: collapse;
+        }
+
+        table {
+            counter-reset: rowNumber;
+        }
+
+        .table::before {
+            padding: 5px;
+            display: table-cell;
+            counter-increment: rowNumber;
+            content: counter(rowNumber) ".";
+        }
+
+        h1 {
+            font-size: 30px;
+        }
+    </style>
 </head>
 <body th:if="${platform.products!=null}">
 <table th:if="${platform.products?.size > 0}" class="main">
@@ -20,7 +70,7 @@
         <td>Размер</td>
         <td>Площадь</td>
         <td>Начало</td>
-        <td>Конец</td>
+        <td>Завершение</td>
     </tr>
     <tr th:each="string: ${platform.products}" class="table">
         <td th:text="${string.caption}"></td>
@@ -28,21 +78,33 @@
         <td th:text="${string.numDog}"></td>
         <td th:text="${string.client}"></td>
         <td th:text="${string.raz}"></td>
-        <td th:text="${string.sm}"></td>
+        <td th:text="${#numbers.formatDecimal(string.sm, 1, 3)}"></td>
         <td th:text="${string.dts}"></td>
         <td th:text="${string.dtf}"></td>
     </tr>
 
 </table>
 <hr>
+
 <table class="result">
     <tr>
-        <td><b th:text="Количество"></b></td>
+        <td><b th:text="Наименование"></b></td>
+        <td><b th:text="Размер"></b></td>
+        <td><b th:text="Кол-во"></b></td>
         <td><b th:text="Площадь"></b></td>
     </tr>
+    <tr th:each="line: ${product2CountAndArea}">
+
+        <td th:text="${line.key.getCaption()}"></td>
+        <td th:text="${line.key.getRaz()}"></td>
+        <td th:text="${line.value.key}"></td>
+        <td th:text='${#numbers.formatDecimal(line.value.value, 1, 3)}'></td>
+    </tr>
     <tr>
-        <td th:text="${platform.count}"></td>
-        <td th:text="${platform.area}"></td>
+        <td style="border: none"><b>Итого</b></td>
+        <td style="border: none"></td>
+        <td th:text="${count}"></td>
+        <td th:text="${area}"></td>
     </tr>
 </table>
 </body>

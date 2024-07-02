@@ -13,19 +13,24 @@ import java.text.DecimalFormat;
 @RestController
 @RequestMapping("/scan")
 class ScanController(@Qualifier("sPJdbcTemplate") val spJdbcTemplate: JdbcTemplate, val apiController: ApiController) {
-    
-    
+
+
     @GetMapping("/table")
-    fun platform(): PlatformDTO {
+    fun platform(id: Int? = null): PlatformDTO {
         val products: List<Product>
-        return if (apiController.currentPlatform != null) {
-            products = spJdbcTemplate.query("select * from V0859_1_c1(?) order by mark",
-                                            DataClassRowMapper(Product::class.java),
-                                            apiController.currentPlatform);
+        val platform: Int = id ?: apiController.currentPlatform
+        return run {
+            products = spJdbcTemplate.query(
+                "select * from V0859_1_c1(?) order by mark",
+                DataClassRowMapper(Product::class.java),
+                platform
+            );
             val count = products.count()
             val area = products.stream().mapToDouble(Product::sm).sum()
-            PlatformDTO(products = products, platformName = apiController.currentPlatform,
-                    count = count, area = DecimalFormat("#.###").format(area));
-        } else PlatformDTO()
+            PlatformDTO(
+                products = products, platformName = platform,
+                count = count, area = area
+            );
+        }
     }
 }

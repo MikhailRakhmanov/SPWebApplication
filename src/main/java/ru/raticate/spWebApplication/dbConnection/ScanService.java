@@ -66,6 +66,9 @@ public class ScanService {
                 } catch (Exception ex) {
                     System.out.println("Штрих кода " + barcode + " нет в ZMATLIST.");
                 }
+                if (barcode == null) {
+                    System.out.println("Штрих кода нет в базе! Проверьте верная ли база данных СП подключена.");
+                }
             }
 
             sPJdbcTemplate.update(

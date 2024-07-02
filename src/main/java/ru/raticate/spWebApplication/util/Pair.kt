@@ -1,3 +1,3 @@
 package ru.raticate.spWebApplication.util;
 
-class Pair<T, U>(val key: T, val value: U)
+class Pair<T, U>(var key: T, val value: U)
