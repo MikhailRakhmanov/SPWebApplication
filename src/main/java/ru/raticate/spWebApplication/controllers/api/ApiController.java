@@ -67,7 +67,7 @@ public class ApiController {
             scanService.sendQuery(new Pair<>(pair.getPlatform(), pair.getProduct()));
             return "success";
         } else {
-            return "failed";
+            return "no product";
         }
 
     }

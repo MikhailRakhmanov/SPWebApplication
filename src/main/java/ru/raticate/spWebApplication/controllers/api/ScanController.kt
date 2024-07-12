@@ -18,7 +18,7 @@ class ScanController(@Qualifier("sPJdbcTemplate") val spJdbcTemplate: JdbcTempla
     @GetMapping("/table")
     fun platform(id: Int? = null): PlatformDTO {
         val products: List<Product>
-        val platform: Int = id ?: apiController.currentPlatform
+        val platform: Int = id ?: apiController.currentPlatform ?: 1
         return run {
             products = spJdbcTemplate.query(
                 "select * from V0859_1_c1(?) order by mark",
